@@ -1078,7 +1078,13 @@ class OmnipodDashPumpPlugin @Inject constructor(
     }
 
     override fun canHandleDST(): Boolean {
-        return false
+        /*
+        If (potentially) larger time zone changes while traveling are no problem, I don't see why a DST change should cause the Loop
+        to be disabled for 3h?!
+        Also I never had any problems with DST changes while Looping wih Omnipod on iOS and the Loop isn't automatically disabled
+        for DST changes in iOS Loop either
+        */
+        return true
     }
 
     override fun getCustomActions(): List<CustomAction> {
