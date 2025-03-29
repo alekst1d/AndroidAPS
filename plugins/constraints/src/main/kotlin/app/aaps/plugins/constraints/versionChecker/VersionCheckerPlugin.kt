@@ -35,11 +35,14 @@ class VersionCheckerPlugin @Inject constructor(
 
     override fun applyMaxIOBConstraints(maxIob: Constraint<Double>): Constraint<Double> {
         versionCheckerUtils.triggerCheckVersion()
+        return maxIob
+        /*
         val endDate = sp.getLong(rh.gs(app.aaps.core.utils.R.string.key_app_expiration) + "_" + config.VERSION_NAME, 0)
         return if (endDate != 0L && dateUtil.now() > endDate)
             maxIob.set(0.0, rh.gs(R.string.application_expired), this)
         else
             maxIob
+        */
     }
 
 }
