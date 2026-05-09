@@ -980,7 +980,13 @@ class OmnipodDashPumpPlugin @Inject constructor(
         pumpEnactResultProvider.get().success(false).enacted(false)
             .comment("Omnipod Dash driver does not support TDD")
 
-    override fun canHandleDST(): Boolean = false
+   /*
+   If (potentially) larger time zone changes while traveling are no problem, I don't see why a DST change should cause the Loop
+   to be disabled for 3h?!
+   Also I never had any problems with DST changes while Looping wih Omnipod on iOS and the Loop isn't automatically disabled
+   for DST changes in iOS Loop either
+   */
+    override fun canHandleDST(): Boolean = true
     override fun executeCustomCommand(customCommand: CustomCommand): PumpEnactResult {
         return when (customCommand) {
             is CommandSilenceAlerts            ->
