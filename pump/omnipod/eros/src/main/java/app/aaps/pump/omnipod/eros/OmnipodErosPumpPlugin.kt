@@ -766,7 +766,14 @@ class OmnipodErosPumpPlugin @Inject constructor(
     }
 
     override val isFakingTempsByExtendedBoluses: Boolean = false
-    override fun canHandleDST(): Boolean = false
+
+    /*
+    If (potentially) larger time zone changes while traveling are no problem, I don't see why a DST change should cause the Loop
+    to be disabled for 3h?!
+    Also I never had any problems with DST changes while Looping wih Omnipod on iOS and the Loop isn't automatically disabled
+    for DST changes in iOS Loop either
+    */
+    override fun canHandleDST(): Boolean = true
     override fun finishHandshaking() {
         if (displayConnectionMessages) aapsLogger.debug(LTag.PUMP, "finishHandshaking [OmnipodPumpPlugin] - default (empty) implementation.")
     }
