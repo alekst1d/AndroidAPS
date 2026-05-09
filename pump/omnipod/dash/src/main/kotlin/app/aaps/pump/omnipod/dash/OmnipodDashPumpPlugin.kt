@@ -565,6 +565,7 @@ class OmnipodDashPumpPlugin @Inject constructor(
             bolusDeliveryInProgress = true
             aapsLogger.info(LTag.PUMP, "Delivering treatment: $detailedBolusInfo $bolusCanceled")
             val requestedBolusAmount = detailedBolusInfo.insulin
+            /*
             if (requestedBolusAmount > reservoirLevel) {
                 return pumpEnactResultProvider.get()
                     .success(false)
@@ -572,6 +573,7 @@ class OmnipodDashPumpPlugin @Inject constructor(
                     .bolusDelivered(0.0)
                     .comment(rh.gs(R.string.omnipod_dash_not_enough_insulin))
             }
+            */
             if (podStateManager.deliveryStatus?.bolusDeliveringActive() == true) {
                 return pumpEnactResultProvider.get()
                     .success(false)
