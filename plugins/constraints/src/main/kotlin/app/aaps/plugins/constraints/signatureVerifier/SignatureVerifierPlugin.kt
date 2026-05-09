@@ -174,14 +174,13 @@ class SignatureVerifierPlugin @Inject constructor(
     }
 
     @Throws(IOException::class) private fun downloadAndSaveRevokedCerts() {
-        //val download = downloadRevokedCerts()
-        //saveRevokedCerts(download)
+        val download = downloadRevokedCerts()
+        saveRevokedCerts(download)
         sp.putLong(R.string.key_last_revoked_certs_check, System.currentTimeMillis())
-        //synchronized(lock) { revokedCerts = parseRevokedCertsFile(download) }
+        synchronized(lock) { revokedCerts = parseRevokedCertsFile(download) }
     }
 
     private fun loadLocalRevokedCerts() {
-        /*
         try {
             var revokedCerts = readCachedDownloadedRevokedCerts()
             if (revokedCerts == null) revokedCerts = readRevokedCertsInAssets()
@@ -189,7 +188,6 @@ class SignatureVerifierPlugin @Inject constructor(
         } catch (e: IOException) {
             aapsLogger.error("Error in SignatureVerifierPlugin", e)
         }
-        */
     }
 
     @Throws(IOException::class)

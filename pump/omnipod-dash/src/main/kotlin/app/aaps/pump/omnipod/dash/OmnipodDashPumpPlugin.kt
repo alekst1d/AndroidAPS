@@ -560,7 +560,6 @@ class OmnipodDashPumpPlugin @Inject constructor(
             bolusDeliveryInProgress = true
             aapsLogger.info(LTag.PUMP, "Delivering treatment: $detailedBolusInfo $bolusCanceled")
             val requestedBolusAmount = detailedBolusInfo.insulin
-            /*
             if (requestedBolusAmount > reservoirLevel) {
                 return instantiator.providePumpEnactResult()
                     .success(false)
@@ -568,7 +567,6 @@ class OmnipodDashPumpPlugin @Inject constructor(
                     .bolusDelivered(0.0)
                     .comment(rh.gs(R.string.omnipod_dash_not_enough_insulin))
             }
-            */
             if (podStateManager.deliveryStatus?.bolusDeliveringActive() == true) {
                 return instantiator.providePumpEnactResult()
                     .success(false)
@@ -1082,13 +1080,7 @@ class OmnipodDashPumpPlugin @Inject constructor(
     }
 
     override fun canHandleDST(): Boolean {
-        /*
-        If (potentially) larger time zone changes while traveling are no problem, I don't see why a DST change should cause the Loop
-        to be disabled for 3h?!
-        Also I never had any problems with DST changes while Looping wih Omnipod on iOS and the Loop isn't automatically disabled
-        for DST changes in iOS Loop either
-        */
-        return true
+       return false
     }
 
     override fun getCustomActions(): List<CustomAction> {
@@ -1537,8 +1529,7 @@ class OmnipodDashPumpPlugin @Inject constructor(
         if (tbr != null && podStateManager.deliveryStatus?.basalActive() == true) {
             aapsLogger.error(LTag.PUMP, "AAPS expected a TBR running but pump has no TBR running! AAPS: ${pumpSync.expectedPumpState().temporaryBasal} Pump: ${podStateManager.deliveryStatus}")
             // Alert user
-            //val sound = if (hasBolusErrorBeepEnabled()) app.aaps.core.ui.R.raw.boluserror else 0
-            val sound = 0
+            val sound = if (hasBolusErrorBeepEnabled()) app.aaps.core.ui.R.raw.boluserror else 0
             showErrorDialog(rh.gs(R.string.temp_basal_out_of_sync), sound)
             // Sync stopped basal with AAPS
             val ret = pumpSync.syncStopTemporaryBasalWithPumpId(
@@ -1552,8 +1543,7 @@ class OmnipodDashPumpPlugin @Inject constructor(
         } else if (tbr == null && podStateManager.deliveryStatus?.tempBasalActive() == true) {
             aapsLogger.error(LTag.PUMP, "AAPS expected no TBR running but pump has a TBR running! AAPS: ${pumpSync.expectedPumpState().temporaryBasal} Pump: ${podStateManager.deliveryStatus}")
             // Alert user
-            //val sound = if (hasBolusErrorBeepEnabled()) app.aaps.core.ui.R.raw.boluserror else 0
-            val sound = 0
+            val sound = if (hasBolusErrorBeepEnabled()) app.aaps.core.ui.R.raw.boluserror else 0
             showErrorDialog(rh.gs(R.string.temp_basal_out_of_sync), sound)
             // If this is reached is reached there is probably a something wrong with the time (maybe it has changed?).
             // No way to calculate the TBR end time and update pumpSync properly.
