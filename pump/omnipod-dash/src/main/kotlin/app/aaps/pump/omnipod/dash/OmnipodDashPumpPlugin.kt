@@ -1080,7 +1080,7 @@ class OmnipodDashPumpPlugin @Inject constructor(
     }
 
     override fun canHandleDST(): Boolean {
-       return false
+        return false
     }
 
     override fun getCustomActions(): List<CustomAction> {
